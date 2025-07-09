@@ -16,7 +16,7 @@
   <div class="thi-t-k-website-c-b-n">Thiết kế Website Cơ Bản</div>
   <div class="group-47217">
     <div class="rectangle-347615698"></div>
-    <img class="outline-time-history" src="../assets/images/outline-time-history0.svg" alt="">
+    <img class="outline-time-history" src="assets/images/outline-time-history6.svg" alt="">
   </div>
   <div class="ch-t-3-000-000">Chỉ từ 3.000.000đ</div>
   <div class="group-47218">
@@ -46,7 +46,7 @@
     </div>
   </div>
   <img class="flash" src="assets/images/flash0.svg" alt="">
-  <img class="e-2-c-0-d-487-a-30-f-4-b-40-93-ce-74-cce-2-e-8-a-815-removebg-preview-1" src="assets/images/e-2-c-0-d-487-a-30-f-4-b-40-93-ce-74-cce-2-e-8-a-815-removebg-preview-10.png" alt="" />
+  <img class="e-2-c-0-d-487-a-30-f-4-b-40-93-ce-74-cce-2-e-8-a-815-removebg-preview-1" src="assets/images/robotCamLoa.png" alt="" />
 </div>
 <!-- Hết banner -->
 <style>
