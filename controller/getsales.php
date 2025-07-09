@@ -78,6 +78,36 @@
                 return false;
             }
         }
+        // Lọc loại doanh nghiệp theo loại gói
+        public function getselectallKMbyloaigoi($loaigoi){
+            $p = new Msales();
+            $con = $p->selectallKMbyloaigoi($loaigoi);
+            if($con){
+                if($con -> num_rows > 0){
+                    return $con;
+                }else{
+                    return 0;
+                }
+            }else{
+                echo "loi khuyến mãi ";
+                return false;
+            }
+        }
+        // Lọc loại doanh nghiệp theo loại gói + loại doanh nghiệp
+        public function getselectallKMbyloaiDNandloaigoi($loaiDN,$loaigoi){
+            $p = new Msales();
+            $con = $p->selectallKMbyloaiDNandloaigoi($loaiDN,$loaigoi);
+            if($con){
+                if($con -> num_rows > 0){
+                    return $con;
+                }else{
+                    return 0;
+                }
+            }else{
+                echo "loi khuyến mãi ";
+                return false;
+            }
+        }
     }
 
 ?>

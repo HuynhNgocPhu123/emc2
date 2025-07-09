@@ -57,6 +57,21 @@
                 return false;
             }
         }
+        //Lọc theo doanh nghiệp + lọc theo gói:
+        public function selectallKMbyloaiDNandloaigoi($loaiDN,$loaigoi){
+            $p = new clsketnoi();
+            $con = $p->moketnoi();
+            if($con){
+                $str ="SELECT * FROM khuyenmai
+                where loaidoanhnghiep = '$loaiDN' and loaigoi = '$loaigoi'
+                order by id_khuyenmai desc";
+                $tbl = $con->query($str);
+                return $tbl;
+            }else{
+                echo "Lỗi kết nối";
+                return false;
+            }
+        }
         // Xóa khuyến mãi
         public function deletekhuyenmai($id_khuyenmai){
             $p = new clsketnoi();

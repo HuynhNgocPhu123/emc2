@@ -1,4 +1,15 @@
-<?php include __DIR__ . '/../includes/header.php'; ?>
+<?php
+    include_once("controller/getsales.php");
+    $p = new Gsales();
+    $data_large = $p->getselectallKMbyloaiDNandloaigoi("Doanh Nghiệp Lớn", "Combo hot tháng này");
+    $data_long_large = $p->getselectallKMbyloaiDNandloaigoi("Doanh Nghiệp Lớn", "Ưu đãi dài hạn");
+    $data_short_large = $p->getselectallKMbyloaiDNandloaigoi("Doanh Nghiệp Lớn", "Ưu đãi ngắn hạn");
+
+    // Doanh nghiệp nhỏ
+    $data_small_combo = $p->getselectallKMbyloaiDNandloaigoi("Doanh Nghiệp Nhỏ", "Combo hot tháng này");
+    $data_long_small = $p->getselectallKMbyloaiDNandloaigoi("Doanh Nghiệp Nhỏ", "Ưu đãi dài hạn");
+    $data_short_small = $p->getselectallKMbyloaiDNandloaigoi("Doanh Nghiệp Nhỏ", "Ưu đãi ngắn hạn");
+?>
 <link rel="stylesheet" href="assets/css/vars.css">
 <link rel="stylesheet" href="assets/css/style.css">
 <!-- Banner từ index2.html -->
@@ -783,688 +794,363 @@
 <section class="business-packages">
     <div class="header">
         <div class="tab-buttons">
-            <button class="tab-btn active" onclick="switchTab('large', event)">Doanh nghiệp lớn</button>
-            <button class="tab-btn" onclick="switchTab('small', event)">Doanh nghiệp nhỏ</button>
+            <button class="tab-btn active" onclick="switchTab('large-business', event)">Doanh nghiệp lớn</button>
+            <button class="tab-btn" onclick="switchTab('small-business', event)">Doanh nghiệp nhỏ</button>
         </div>
+
     </div>
-    <!-- Large Business Tab -->
+    <!--Doanh nghiệp lớn-->
     <div id="large-business" class="tab-content active">
-        <div class="section-title">
-            Combo hot tháng này
-            <div class="search-box">
-                <div class="search-inner">
-                    <input type="text" class="search-input" placeholder="Tìm combo bạn cần...">
-                    <span style="position: absolute; right: 32px; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 10;">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="15" cy="15" r="12" stroke="url(#search-gradient)" stroke-width="2.5" fill="none"/>
-                        <line x1="23.5" y1="23.5" x2="30" y2="30" stroke="url(#search-gradient)" stroke-width="2.5" stroke-linecap="round"/>
-                        <defs>
-                          <linearGradient id="search-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#ffb6b9"/>
-                            <stop offset="0.5" stop-color="#a259ff"/>
-                            <stop offset="1" stop-color="#3b82f6"/>
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                    </span>
+    <!-- Combo hot tháng này -->
+    <div class="section-title">Combo hot tháng này</div>
+    <div class="packages-grid">
+        <?php if ($data_large && $data_large != false) {
+            while($row = $data_large->fetch_assoc()) { ?>
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-title"><?= $row['ten_khuyenmai'] ?></div>
+                        <span class="promo-badge-svg"><img src="assets/images/khuyenmai.png" alt="Khuyến Mãi" /></span>
+                    </div>
+                    <div class="package-price">Chỉ từ <?= $row['gia'] ?></div>
+                    <ul class="feature-list">
+                        <?php
+                            $features = preg_split('/(?<=[.!?])\s+/', $row['noidung']);
+                            foreach ($features as $feature):
+                                $feature = trim($feature);
+                                if (!empty($feature)): ?>
+                                    <li class="feature-item">
+                                        <span class="feature-icon">
+                                            <!-- SVG check icon -->
+                                            <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
+                                            </svg>
+                                        </span>
+                                        <span><?= $feature ?></span>
+                                    </li>
+                        <?php endif; endforeach; ?>
+                    </ul>
+                    <div style="display:flex; justify-content:center; margin-top:32px;">
+                        <div class="btn-gradient-border">
+                            <button class="gradient-btn-index">Tư vấn ngay</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="packages-grid">
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">Thiết kế Website<br>Cơ Bản</div>
-                    <span class="promo-badge-svg">
-                        <img src="assets/images/khuyenmai.png" alt="Khuyến Mãi" />
-                    </span>
-                </div>
-                <div class="package-price">Chỉ từ 3.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.997559" y="0.5" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9955 12.7026C17.1071 8.43892 23.7909 8.48426 27.9276 12.7801C32.0661 17.0778 32.1081 24.0228 27.9969 28.2921C23.8857 32.5614 17.198 32.5179 13.0594 28.2201C10.6069 25.6733 9.59418 22.1988 10.0291 18.904C10.09 18.4423 10.4998 18.1194 10.9444 18.1826C11.389 18.2459 11.7 18.6715 11.639 19.1332C11.2707 21.9235 12.1279 24.8662 14.2085 27.0269C17.7233 30.6769 23.3821 30.6978 26.8478 27.0989C30.3135 23.4999 30.2934 17.6234 26.7786 13.9734C23.2655 10.3252 17.6107 10.3024 14.1445 13.8959L14.9545 13.9001C15.4033 13.9025 15.7652 14.2821 15.7629 14.7481C15.7607 15.2141 15.3951 15.5899 14.9464 15.5876L12.1887 15.5732C11.7431 15.5709 11.3825 15.1964 11.3803 14.7337L11.3664 11.87C11.3642 11.404 11.7261 11.0243 12.1748 11.022C12.6235 11.0196 12.9891 11.3955 12.9914 11.8615L12.9955 12.7026ZM20.4934 15.1563C20.9422 15.1563 21.3059 15.534 21.3059 16V20.1505L23.7763 22.7159C24.0936 23.0454 24.0936 23.5796 23.7763 23.9092C23.459 24.2387 22.9445 24.2387 22.6272 23.9092L19.6809 20.8495V16C19.6809 15.534 20.0447 15.1563 20.4934 15.1563Z" fill="url(#paint0_linear_953_9460)"/>
-                            <defs>
-                                <linearGradient id="paint0_linear_953_9460" x1="20.4935" y1="9.53137" x2="20.4935" y2="31.4689" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#573592"/>
-                                    <stop offset="1" stop-color="#EE6067"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </span><span>Theo yêu cầu</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Thiết kế UX - UI</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Tặng Domain và hosting</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Điều chỉnh Giao diện/Chức năng theo yêu cầu</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Tùy chọn chụp hình/Thiết kế/Edit video/Bài đăng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Phân tích hiệu quả triển khai</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">Social Marketing<br>Cơ Bản</div>
-                    <span class="promo-badge-svg">
-                        <img src="assets/images/khuyenmai.png" alt="Khuyến Mãi" />
-                    </span>
-                </div>
-                <div class="package-price">Chỉ từ 678.000đ/tháng</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.997559" y="0.5" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9955 12.7026C17.1071 8.43892 23.7909 8.48426 27.9276 12.7801C32.0661 17.0778 32.1081 24.0228 27.9969 28.2921C23.8857 32.5614 17.198 32.5179 13.0594 28.2201C10.6069 25.6733 9.59418 22.1988 10.0291 18.904C10.09 18.4423 10.4998 18.1194 10.9444 18.1826C11.389 18.2459 11.7 18.6715 11.639 19.1332C11.2707 21.9235 12.1279 24.8662 14.2085 27.0269C17.7233 30.6769 23.3821 30.6978 26.8478 27.0989C30.3135 23.4999 30.2934 17.6234 26.7786 13.9734C23.2655 10.3252 17.6107 10.3024 14.1445 13.8959L14.9545 13.9001C15.4033 13.9025 15.7652 14.2821 15.7629 14.7481C15.7607 15.2141 15.3951 15.5899 14.9464 15.5876L12.1887 15.5732C11.7431 15.5709 11.3825 15.1964 11.3803 14.7337L11.3664 11.87C11.3642 11.404 11.7261 11.0243 12.1748 11.022C12.6235 11.0196 12.9891 11.3955 12.9914 11.8615L12.9955 12.7026ZM20.4934 15.1563C20.9422 15.1563 21.3059 15.534 21.3059 16V20.1505L23.7763 22.7159C24.0936 23.0454 24.0936 23.5796 23.7763 23.9092C23.459 24.2387 22.9445 24.2387 22.6272 23.9092L19.6809 20.8495V16C19.6809 15.534 20.0447 15.1563 20.4934 15.1563Z" fill="url(#paint0_linear_953_9460)"/>
-                            <defs>
-                                <linearGradient id="paint0_linear_953_9460" x1="20.4935" y1="9.53137" x2="20.4935" y2="31.4689" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#573592"/>
-                                    <stop offset="1" stop-color="#EE6067"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </span><span>Theo chiến lược</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Hỗ trợ lên kế hoạch nội dung</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Quản lý chiến dịch quảng cáo</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Tùy chọn chụp hình/Thiết kế/Edit video/Bài đăng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Phân tích hiệu quả triển khai</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="section-title">
-            Ưu đãi dài hạn
-            <a class="more-btn" href="#">
-              <span class="more-btn-text">Xem thêm</span>
-              <span class="more-btn-icon">
-                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 9H12" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M10 7L12 9L10 11" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </a>
-        </div>
-        <div class="packages-grid">
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">GÓI SEEDING PRO</div>
-                </div>
-                <div class="package-price">Chỉ từ 10.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding liên tục 3 tháng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>1000+ comment tích cực</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Báo cáo chi tiết hàng tháng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Hỗ trợ xử lý khủng hoảng truyền thông</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">Video Content Premium</div>
-                </div>
-                <div class="package-price">Chỉ từ 5.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>10 video chuyên nghiệp/tháng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Quay dựng tại studio</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Biên tập nội dung sáng tạo</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Hỗ trợ quảng bá đa nền tảng</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="section-title">
-            Ưu đãi ngắn hạn
-            <a class="more-btn" href="#">
-              <span class="more-btn-text">Xem thêm</span>
-              <span class="more-btn-icon">
-                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 9H12" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M10 7L12 9L10 11" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </a>
-        </div>
-        <div class="packages-grid">
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">GÓI SEEDING MINI</div>
-                </div>
-                <div class="package-price">Chỉ từ 4.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding dạng Post - Group</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding dạng CMT - Group</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding dạng Post - Diễn đàn</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding dạng CMT - Youtube/Tiktok</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">SX Video cho Doanh nghiệp</div>
-                </div>
-                <div class="package-price">Chỉ từ 2.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Kịch bản, Diễn viên, Studio</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Edit video, Resize</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Đăng đồng bộ đa kênh</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Cam kết view 5k - 10k view</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-        </div>
+        <?php }} else {
+            echo "<p>Không có gói khuyến mãi nào.</p>";
+        } ?>
     </div>
-    <!-- Small Business Tab -->
+
+    <!-- Ưu đãi dài hạn -->
+    <div class="section-title">
+        Ưu đãi dài hạn
+        <a class="more-btn" href="#">
+            <span class="more-btn-text">Xem thêm</span>
+            <span class="more-btn-icon">
+                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9H12" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 7L12 9L10 11" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </a>
+    </div>
+    <div class="packages-grid">
+        <?php if ($data_long_large && $data_long_large != false): ?>
+            <?php while ($row = $data_long_large->fetch_assoc()): ?>
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-title"><?= $row['ten_khuyenmai'] ?></div>
+                    </div>
+                    <div class="package-price">Chỉ từ <?= $row['gia'] ?></div>
+                    <ul class="feature-list">
+                        <?php
+                            $features = preg_split('/(?<=[.!?])\s+/', $row['noidung']);
+                            foreach ($features as $feature):
+                                $feature = trim($feature);
+                                if (!empty($feature)):
+                        ?>
+                            <li class="feature-item">
+                                <span class="feature-icon">
+                                    <!-- SVG check icon -->
+                                    <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span><?= $feature ?></span>
+                            </li>
+                        <?php endif; endforeach; ?>
+                    </ul>
+                    <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
+                        <div class="btn-gradient-border">
+                            <button class="gradient-btn-index">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Tư vấn ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>Hiện chưa có ưu đãi dài hạn nào cho Doanh Nghiệp Lớn.</p>
+        <?php endif; ?>
+    </div>
+
+    <!-- Ưu đãi ngắn hạn -->
+    <div class="section-title">
+        Ưu đãi ngắn hạn
+        <a class="more-btn" href="#">
+            <span class="more-btn-text">Xem thêm</span>
+            <span class="more-btn-icon">
+                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9H12" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 7L12 9L10 11" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </a>
+    </div>
+    <div class="packages-grid">
+        <?php if ($data_short_large && $data_short_large != false): ?>
+            <?php while ($row = $data_short_large->fetch_assoc()): ?>
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-title"><?= $row['ten_khuyenmai'] ?></div>
+                    </div>
+                    <div class="package-price">Chỉ từ <?= $row['gia'] ?></div>
+                    <ul class="feature-list">
+                        <?php
+                            $features = preg_split('/(?<=[.!?])\s+/', $row['noidung']);
+                            foreach ($features as $feature):
+                                $feature = trim($feature);
+                                if (!empty($feature)):
+                        ?>
+                            <li class="feature-item">
+                                <span class="feature-icon">
+                                    <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span><?= $feature ?></span>
+                            </li>
+                        <?php endif; endforeach; ?>
+                    </ul>
+                    <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
+                        <div class="btn-gradient-border">
+                            <button class="gradient-btn-index">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Tư vấn ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>Hiện chưa có gói ưu đãi ngắn hạn cho Doanh Nghiệp Lớn.</p>
+        <?php endif; ?>
+    </div>
+</div>
+    <!--Doanh nghiệp nhỏ-->
     <div id="small-business" class="tab-content">
-        <div class="section-title">
-            Combo hot tháng này
-            <div class="search-box">
-                <div class="search-inner">
-                    <input type="text" class="search-input" placeholder="Tìm combo bạn cần...">
-                    <span style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); pointer-events: none;">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="15" cy="15" r="12" stroke="url(#search-gradient)" stroke-width="2.5" fill="none"/>
-                        <line x1="23.5" y1="23.5" x2="30" y2="30" stroke="url(#search-gradient)" stroke-width="2.5" stroke-linecap="round"/>
-                        <defs>
-                          <linearGradient id="search-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#ffb6b9"/>
-                            <stop offset="0.5" stop-color="#a259ff"/>
-                            <stop offset="1" stop-color="#3b82f6"/>
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="packages-grid">
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">Website Cơ Bản<br>Doanh nghiệp nhỏ</div>
-                    <span class="promo-badge-svg">
-                        <img src="assets/images/khuyenmai.png" alt="Khuyến Mãi" />
-                    </span>
-                </div>
-                <div class="package-price">Chỉ từ 1.500.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.997559" y="0.5" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9955 12.7026C17.1071 8.43892 23.7909 8.48426 27.9276 12.7801C32.0661 17.0778 32.1081 24.0228 27.9969 28.2921C23.8857 32.5614 17.198 32.5179 13.0594 28.2201C10.6069 25.6733 9.59418 22.1988 10.0291 18.904C10.09 18.4423 10.4998 18.1194 10.9444 18.1826C11.389 18.2459 11.7 18.6715 11.639 19.1332C11.2707 21.9235 12.1279 24.8662 14.2085 27.0269C17.7233 30.6769 23.3821 30.6978 26.8478 27.0989C30.3135 23.4999 30.2934 17.6234 26.7786 13.9734C23.2655 10.3252 17.6107 10.3024 14.1445 13.8959L14.9545 13.9001C15.4033 13.9025 15.7652 14.2821 15.7629 14.7481C15.7607 15.2141 15.3951 15.5899 14.9464 15.5876L12.1887 15.5732C11.7431 15.5709 11.3825 15.1964 11.3803 14.7337L11.3664 11.87C11.3642 11.404 11.7261 11.0243 12.1748 11.022C12.6235 11.0196 12.9891 11.3955 12.9914 11.8615L12.9955 12.7026ZM20.4934 15.1563C20.9422 15.1563 21.3059 15.534 21.3059 16V20.1505L23.7763 22.7159C24.0936 23.0454 24.0936 23.5796 23.7763 23.9092C23.459 24.2387 22.9445 24.2387 22.6272 23.9092L19.6809 20.8495V16C19.6809 15.534 20.0447 15.1563 20.4934 15.1563Z" fill="url(#paint0_linear_953_9460)"/>
-                            <defs>
-                                <linearGradient id="paint0_linear_953_9460" x1="20.4935" y1="9.53137" x2="20.4935" y2="31.4689" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#573592"/>
-                                    <stop offset="1" stop-color="#EE6067"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </span><span>Template có sẵn</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Responsive mobile</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Tặng Domain 1 năm</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Hosting 6 tháng miễn phí</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Hỗ trợ kỹ thuật 3 tháng</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">Social Marketing<br>Startup</div>
-                    <span class="promo-badge-svg">
-                        <img src="assets/images/khuyenmai.png" alt="Khuyến Mãi" />
-                    </span>
-                </div>
-                <div class="package-price">Chỉ từ 299.000đ/tháng</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.997559" y="0.5" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9955 12.7026C17.1071 8.43892 23.7909 8.48426 27.9276 12.7801C32.0661 17.0778 32.1081 24.0228 27.9969 28.2921C23.8857 32.5614 17.198 32.5179 13.0594 28.2201C10.6069 25.6733 9.59418 22.1988 10.0291 18.904C10.09 18.4423 10.4998 18.1194 10.9444 18.1826C11.389 18.2459 11.7 18.6715 11.639 19.1332C11.2707 21.9235 12.1279 24.8662 14.2085 27.0269C17.7233 30.6769 23.3821 30.6978 26.8478 27.0989C30.3135 23.4999 30.2934 17.6234 26.7786 13.9734C23.2655 10.3252 17.6107 10.3024 14.1445 13.8959L14.9545 13.9001C15.4033 13.9025 15.7652 14.2821 15.7629 14.7481C15.7607 15.2141 15.3951 15.5899 14.9464 15.5876L12.1887 15.5732C11.7431 15.5709 11.3825 15.1964 11.3803 14.7337L11.3664 11.87C11.3642 11.404 11.7261 11.0243 12.1748 11.022C12.6235 11.0196 12.9891 11.3955 12.9914 11.8615L12.9955 12.7026ZM20.4934 15.1563C20.9422 15.1563 21.3059 15.534 21.3059 16V20.1505L23.7763 22.7159C24.0936 23.0454 24.0936 23.5796 23.7763 23.9092C23.459 24.2387 22.9445 24.2387 22.6272 23.9092L19.6809 20.8495V16C19.6809 15.534 20.0447 15.1563 20.4934 15.1563Z" fill="url(#paint0_linear_953_9460)"/>
-                            <defs>
-                                <linearGradient id="paint0_linear_953_9460" x1="20.4935" y1="9.53137" x2="20.4935" y2="31.4689" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#573592"/>
-                                    <stop offset="1" stop-color="#EE6067"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </span><span>15 bài đăng/tháng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Thiết kế poster cơ bản</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Quản lý 2 kênh social</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Tương tác khách hàng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Báo cáo kết quả hàng tháng</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="section-title">
-            Ưu đãi dài hạn
-            <a class="more-btn" href="#">
-              <span class="more-btn-text">Xem thêm</span>
-              <span class="more-btn-icon">
-                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 9H12" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M10 7L12 9L10 11" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </a>
-        </div>
-        <div class="packages-grid">
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">GÓI SEEDING PRO</div>
-                </div>
-                <div class="package-price">Chỉ từ 10.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding liên tục 3 tháng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>1000+ comment tích cực</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Báo cáo chi tiết hàng tháng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Hỗ trợ xử lý khủng hoảng truyền thông</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">Video Content Premium</div>
-                </div>
-                <div class="package-price">Chỉ từ 5.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>10 video chuyên nghiệp/tháng</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Quay dựng tại studio</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Biên tập nội dung sáng tạo</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Hỗ trợ quảng bá đa nền tảng</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="section-title">
-            Ưu đãi ngắn hạn
-            <a class="more-btn" href="#">
-              <span class="more-btn-text">Xem thêm</span>
-              <span class="more-btn-icon">
-                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 9H12" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M10 7L12 9L10 11" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </a>
-        </div>
-        <div class="packages-grid">
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">GÓI SEEDING MINI</div>
-                </div>
-                <div class="package-price">Chỉ từ 4.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding dạng Post - Group</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding dạng CMT - Group</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding dạng Post - Diễn đàn</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Seeding dạng CMT - Youtube/Tiktok</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
-            </div>
-            <div class="package-card">
-                <div class="package-header">
-                    <div class="package-title">SX Video cho Doanh nghiệp</div>
-                </div>
-                <div class="package-price">Chỉ từ 2.000.000đ</div>
-                <ul class="feature-list">
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Kịch bản, Diễn viên, Studio</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Edit video, Resize</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Đăng đồng bộ đa kênh</span></li>
-                    <li class="feature-item"><span class="feature-icon">
-                        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
-                        </svg>
-                    </span><span>Cam kết view 5k - 10k view</span></li>
-                </ul>
-                <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
-                  <div class="btn-gradient-border">
-                    <button class="gradient-btn-index">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                      Tư vấn ngay
-                    </button>
-                  </div>
-                </div>
+    <!-- Combo hot tháng này -->
+    <div class="section-title">
+        Combo hot tháng này
+        <div class="search-box">
+            <div class="search-inner">
+                <input type="text" class="search-input" placeholder="Tìm combo bạn cần...">
+                <span style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="15" cy="15" r="12" stroke="url(#search-gradient)" stroke-width="2.5" fill="none"/>
+                    <line x1="23.5" y1="23.5" x2="30" y2="30" stroke="url(#search-gradient)" stroke-width="2.5" stroke-linecap="round"/>
+                    <defs>
+                      <linearGradient id="search-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#ffb6b9"/>
+                        <stop offset="0.5" stop-color="#a259ff"/>
+                        <stop offset="1" stop-color="#3b82f6"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </span>
             </div>
         </div>
     </div>
+    <div class="packages-grid">
+        <?php if ($data_small_combo && $data_small_combo != false) {
+            while($row = $data_small_combo->fetch_assoc()) { ?>
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-title"><?= $row['ten_khuyenmai'] ?></div>
+                        <span class="promo-badge-svg">
+                            <img src="assets/images/khuyenmai.png" alt="Khuyến Mãi" />
+                        </span>
+                    </div>
+                    <div class="package-price">Chỉ từ <?= $row['gia'] ?></div>
+                    <ul class="feature-list">
+                        <?php 
+                            $features = preg_split('/(?<=[.!?])\s+/', $row['noidung']);
+                            foreach ($features as $feature):
+                                $feature = trim($feature);
+                                if (!empty($feature)):
+                        ?>
+                            <li class="feature-item">
+                                <span class="feature-icon">
+                                    <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span><?= $feature ?></span>
+                            </li>
+                        <?php 
+                                endif;
+                            endforeach;
+                        ?>
+                    </ul>
+                    <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
+                        <div class="btn-gradient-border">
+                            <button class="gradient-btn-index">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Tư vấn ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        <?php }} else {
+            echo "<p>Không có gói khuyến mãi nào cho doanh nghiệp nhỏ - Combo hot tháng này.</p>";
+        } ?>
+    </div>
+
+    <!-- Ưu đãi dài hạn -->
+    <div class="section-title">
+        Ưu đãi dài hạn
+        <a class="more-btn" href="#">
+            <span class="more-btn-text">Xem thêm</span>
+            <span class="more-btn-icon">
+                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9H12" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 7L12 9L10 11" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </a>
+    </div>
+    <div class="packages-grid">
+        <?php if ($data_long_small && $data_long_small != false): ?>
+            <?php while ($row = $data_long_small->fetch_assoc()): ?>
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-title"><?= $row['ten_khuyenmai'] ?></div>
+                    </div>
+                    <div class="package-price">Chỉ từ <?= $row['gia'] ?></div>
+                    <ul class="feature-list">
+                        <?php
+                            $features = preg_split('/(?<=[.!?])\s+/', $row['noidung']);
+                            foreach ($features as $feature):
+                                $feature = trim($feature);
+                                if (!empty($feature)):
+                        ?>
+                            <li class="feature-item">
+                                <span class="feature-icon">
+                                    <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span><?= $feature ?></span>
+                            </li>
+                        <?php endif; endforeach; ?>
+                    </ul>
+                    <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
+                        <div class="btn-gradient-border">
+                            <button class="gradient-btn-index">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Tư vấn ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>Hiện chưa có ưu đãi dài hạn cho Doanh Nghiệp Nhỏ.</p>
+        <?php endif; ?>
+    </div>
+
+    <!-- Ưu đãi ngắn hạn -->
+    <div class="section-title">
+        Ưu đãi ngắn hạn
+        <a class="more-btn" href="#">
+            <span class="more-btn-text">Xem thêm</span>
+            <span class="more-btn-icon">
+                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9H12" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M10 7L12 9L10 11" stroke="#7B2FF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </a>
+    </div>
+    <div class="packages-grid view-more-wrapper">
+        <?php if ($data_short_small && $data_short_small != false): ?>
+            <?php $count = 0; ?>
+            <?php while ($row = $data_short_small->fetch_assoc()): ?>
+                <?php
+                    $isHidden = $count >= 2 ? 'style="display: none;" class="package-card hidden-package"' : 'class="package-card"';
+                ?>
+                <div <?= $isHidden ?>>
+                    <div class="package-header">
+                        <div class="package-title"><?= $row['ten_khuyenmai'] ?></div>
+                    </div>
+                    <div class="package-price">Chỉ từ <?= $row['gia'] ?></div>
+                    <ul class="feature-list">
+                        <?php
+                            $features = preg_split('/(?<=[.!?])\s+/', $row['noidung']);
+                            foreach ($features as $feature):
+                                $feature = trim($feature);
+                                if (!empty($feature)):
+                        ?>
+                            <li class="feature-item">
+                                <span class="feature-icon">
+                                    <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.998047" y="1" width="39" height="39" rx="9.5" fill="white" fill-opacity="0.9" stroke="white"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M29.1559 14.5909C29.5719 14.9087 29.6148 15.4614 29.2515 15.8255L18.7754 26.3255C18.5854 26.5158 18.3108 26.625 18.022 26.625C17.7333 26.625 17.4586 26.5158 17.2687 26.3255L13.0782 22.1255C12.715 21.7614 12.7579 21.2087 13.1739 20.8909C13.5899 20.573 14.2217 20.6105 14.5849 20.9746L18.022 24.4195L27.7449 14.6746C28.1081 14.3105 28.7398 14.273 29.1559 14.5909Z" fill="#3EA256" stroke="#3EA256" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span><?= $feature ?></span>
+                            </li>
+                        <?php endif; endforeach; ?>
+                    </ul>
+                    <div style="width:100%; display:flex; justify-content:center; margin-top:32px;">
+                        <div class="btn-gradient-border">
+                            <button class="gradient-btn-index">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 12L21 3L12 21L11 13L3 12Z" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Tư vấn ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <?php $count++; ?>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>Hiện chưa có gói ưu đãi ngắn hạn cho Doanh Nghiệp Nhỏ.</p>
+        <?php endif; ?>
+    </div>
+
+    <?php if (isset($count) && $count > 2): ?>
+        <div class="view-more-button-wrap" style="text-align:center; margin-top:16px;">
+            <button class="view-more-btn" onclick="toggleViewMore(this)">Xem thêm</button>
+        </div>
+    <?php endif; ?>
+
+</div>
+
     <!-- Sóng line art trang trí làm background section liên hệ -->
 <div class="contact-svg-bg">
   <svg width="1018" height="1284" viewBox="0 0 1018 1284" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1825,5 +1511,41 @@ document.querySelectorAll('.search-input').forEach(input => {
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
+}
+</style>
+<script>
+    function switchTab(tabId, event) {
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
+    document.getElementById(tabId).classList.add("active");
+}
+
+</script>
+<script>
+function toggleViewMore(button) {
+    const wrapper = button.closest('.view-more-button-wrap').previousElementSibling;
+    const hiddenCards = wrapper.querySelectorAll('.hidden-package');
+    hiddenCards.forEach(card => {
+        card.style.display = "block";
+        card.classList.remove("hidden-package");
+    });
+    button.style.display = "none";
+}
+</script>
+<style>
+    .view-more-btn {
+    padding: 10px 24px;
+    background: linear-gradient(to right, #7B2FF2, #A259FF);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.view-more-btn:hover {
+    background: linear-gradient(to right, #a259ff, #3b82f6);
 }
 </style>
