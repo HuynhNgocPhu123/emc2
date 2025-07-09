@@ -1,0 +1,156 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('../images/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* Overlay mờ tối */
+  z-index: 0;
+}
+
+/* Container chính */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 900px;
+  max-width: 95%;
+  display: flex;
+  background: rgba(255, 255, 255, 0.1); /* glass effect */
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Panel bên trái */
+.left-panel {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.left-panel h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.left-panel p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #e5e7eb;
+}
+
+.social-icons a {
+  color: #fff;
+  margin-right: 12px;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #34d399;
+}
+
+/* Panel bên phải */
+.right-panel {
+  flex: 1;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+}
+
+.right-panel h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 15px;
+}
+
+.form-group input::placeholder {
+  color: #d1d5db;
+}
+
+.terms {
+  margin: 10px 0 20px;
+  font-size: 13px;
+  color: #e5e7eb;
+}
+
+.terms a {
+  color: #10b981;
+}
+
+.btn button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn button:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+/* Logo */
+.logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-panel, .right-panel {
+    width: 100%;
+    padding: 30px;
+    border-right: none;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,592 @@
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  
+}
+
+/* Tổng thể khối hero */
+.hero {
+  background: linear-gradient(to right, #3b0764, #1e3a8a);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  gap: 40px;
+  height: 570px;
+}
+
+/* Phần trên cùng: Logo + headline + tagline */
+.hero-header {
+  text-align: center;
+  max-width: 900px;
+}
+
+.logo {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: #d1d5db;
+}
+
+.logo span {
+  color: white;
+}
+
+.headline {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  margin-top: 12px;
+}
+
+.tagline {
+  font-size: 16px;
+  color: #cbd5e1;
+  margin-top: 10px;
+}
+
+/* Phần dưới: Hình + Cards */
+.hero-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+
+  flex-wrap: nowrap; /* giữ 1 hàng */
+}
+
+/* Hình mascot */
+.hero-left img {
+  width: 380px;
+  height: 310px;
+  
+}
+
+/* Các card */
+.cards {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  margin-left:-100px
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  width: 280px;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+}
+
+.icon {
+  font-size: 28px;
+  margin-top: 4px;
+  color: #f472b6;
+  flex-shrink: 0;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: white;
+}
+
+.desc {
+  font-size: 14px;
+  color: #cbd5e1;
+}
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .hero-body {
+    flex-direction: column;
+  }
+
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-left img {
+    width: 200px;
+  }
+}
+/*Bài viết nổi bật*/
+.container1 {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  padding: 40px;
+}
+
+.left-box {
+  flex: 0 0 55%;
+  height: 250px;
+
+ 
+}
+.img-hot{
+  width: 92%;
+  height: 240px;
+  border-radius: 15px;
+}
+.right-box {
+  flex: 0 0 35%; /* còn 5% để gap hoặc dư */
+  height: 250px;
+  border: 4px solid black;
+  background-color: white;
+}
+.right-box {
+  flex: 0 0 35%;
+  height: 250px;
+  background: transparent;
+  padding: 0 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: none; /* bỏ border test */
+}
+/* Nền tổng thể cho section */
+.featured-news {
+  width: 100%;
+  padding: 60px 40px;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header: tiêu đề và bộ lọc */
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 45px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+  color: white;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 50%;
+  background: linear-gradient(to right, #f472b6, #6366f1, #f472b6);
+  border-radius: 4px;
+
+  background-size: 200% auto;
+  animation: slide-underline 3s linear infinite;
+}
+
+/* Animation keyframes */
+@keyframes slide-underline {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btn1 {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Bố cục 2 cột ảnh - nội dung */
+.container1 {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 40px;
+}
+
+.left-box {
+  flex: 0 0 60%;
+}
+
+.img-hot {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Nội dung bài viết bên phải */
+/* Phần phải - nội dung bài viết nổi bật */
+.right-box {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0 10px;
+  gap: 10px; /* thêm gap ngắn gọn */
+}
+
+/* Tag (danh mục + ngày) */
+.tag {
+  font-size: 13px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+
+/* Tiêu đề */
+.news-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Mô tả */
+.news-desc {
+  font-size: 14px;
+  color: #cbd5e1;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Tác giả */
+.author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.2;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container1 {
+    flex-direction: column;
+  }
+
+  .left-box, .right-box {
+    flex: 1 1 100%;
+  }
+
+  .news-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .filters {
+    justify-content: flex-start;
+  }
+
+  .img-hot {
+    height: auto;
+  }
+}
+/*Tất cả bài viết*/
+.all-posts {
+  padding: 60px 40px;
+  background-color: #0f0c29;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.all-posts-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  margin: 0 auto 40px auto;
+  padding-bottom: 10px;
+}
+
+/* Gạch chân động gradient */
+.all-posts-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #f472b6, #6366f1, #f472b6);
+  background-size: 200% auto;
+  border-radius: 4px;
+  animation: slide-underline 3s linear infinite;
+}
+
+/* Keyframes cho animation gradient chạy ngang */
+@keyframes slide-underline {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* hiển thị đúng 3 bài */
+  gap: 30px;
+}
+
+.post-card {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.post-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.post-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.post-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.post-meta {
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.post-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.post-desc {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  gap: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-info {
+  font-size: 13px;
+  line-height: 1.2;
+}
+/*Bộ lọc*/
+.filter-search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* Bộ lọc */
+.post-filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 18px;
+  font-size: 14px;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.filter-btn:hover {
+  background: linear-gradient(to right, #6366f1, #f472b6);
+  color: white;
+  box-shadow: 0 4px 10px rgba(100, 100, 255, 0.3);
+}
+
+.filter-btn.active {
+  background: linear-gradient(to right, #6366f1, #f472b6);
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* Thanh tìm kiếm */
+.search-form {
+  display: flex;
+  gap: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.search-form input {
+  padding: 10px 16px;
+  font-size: 14px;
+  border: none;
+  background: transparent;
+  color: white;
+  width: 220px;
+  outline: none;
+}
+
+.search-form input::placeholder {
+  color: #ccc;
+}
+
+.search-form button {
+  padding: 10px 16px;
+  background: linear-gradient(to right, #6366f1, #f472b6);
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-form button:hover {
+  filter: brightness(1.1);
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+  .posts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Nút xem thêm */
+.view-more {
+  padding: 12px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(to right, #6366f1, #f472b6);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(100, 100, 255, 0.2);
+}
+
+.view-more:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(100, 100, 255, 0.3);
+}
+/*Phân trang*/
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  gap: 8px;
+}
+
+.pagination a {
+  padding: 8px 14px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pagination a:hover {
+  background-color: #6366f1;
+}
+
+.pagination a.active {
+  background-color: #6366f1;
+  font-weight: bold;
+  pointer-events: none;
+}
+

@@ -1,0 +1,340 @@
+body {
+    background-color: #000 !important;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: 'Afacad', sans-serif;
+  }
+  
+  .container {
+    background-color: transparent !important;
+  }
+  
+  html {
+    background-color: #000;
+  }
+  .abstract-shape {
+    position: absolute;
+    opacity: 0.7; /* Adjust transparency */
+}
+/* .shape-2 {
+  z-index: 1;
+    position: absolute;
+    width: 950px;
+    height: 604px;
+    left: 250px;
+    top: 250px;
+    transform: rotate(25.99deg);
+    opacity: 0.6; 
+    background: url('../images/bgservice.png') no-repeat center center / contain;
+} */
+
+.detailservice-section.section-header {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px 60px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Afacad', sans-serif;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  /* Tiêu đề chính */
+  .detailservice-section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 20px;
+    display: block; /* Đảm bảo h1 chiếm cả dòng */
+    margin-bottom: 20px;
+  }
+  
+  .detailservice-section h1 span {
+    background: linear-gradient(90deg, #ff4ec5, #a463ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Đoạn mô tả */
+  .detailservice-section p {
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #ccc;
+    display: block; /* Mặc định là block, nhưng có thể ghi rõ */
+    margin-top: 0;
+  }
+  
+  /* Hiệu ứng sóng dưới cùng (nếu dùng hình nền PNG như bạn gửi) */
+  .detailservice-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: url('/assets/images/bgservice.png') no-repeat bottom center;
+    background-size: cover;
+    pointer-events: none;
+  }
+  
+ 
+  /* ================= SECTION 2: TABS ================= */
+  .detailservice-section .container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .detailservice-tabs {
+    background: rgb(0, 0, 0);
+    border: 1px solid #555;
+    border-radius: 40px;
+    padding: 5px;
+    margin-bottom: 40px;
+    display: inline-flex;
+  }
+  .section-tabs .detailservice-tabs .tab {
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+  }
+  .section-tabs .detailservice-tabs .tab.active {
+    background: linear-gradient(90deg, #EE6067 0%, #B77BD8 74%, #A485FF 100%);
+    color: #fff;
+    box-shadow: 0 0 10px #e94bff;
+  }
+ 
+  /* ================= SECTION 3: GÓI DỊCH VỤ ================= */
+  .section-packages .detailservice-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    align-items: end;
+    max-width: 1100px;
+    margin: auto;
+    padding-bottom: 100px;
+  }
+  
+  /* === CARD CHUNG === */
+  .section-packages .card {
+    max-width: 350px;
+  width: 100%;
+    background: #111;
+    border-radius: 25px;
+    padding: 35px 25px;
+    position: relative;
+    text-align: center;
+    transition: 0.4s;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    min-height: 580px; /* hoặc 100%, hoặc tùy theo nội dung bạn muốn */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .section-packages .card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  .section-packages .card p {
+    color: #ccc;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  .section-packages .card .price {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .section-packages .card .price-note {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 20px;
+  }
+  
+  /* === CARD ĐẶC BIỆT (TĂNG TỐC) === */
+  .section-packages .card.featured {
+    background: linear-gradient(180deg, #EE6067 0%, #7765FF 100%);
+    color: #fff;
+    transform: translateY(-40px);
+    box-shadow: 0 0 30px rgba(233, 75, 255, 0.6);
+  }
+  
+  /* === DANH SÁCH TÍNH NĂNG === */
+  .section-packages .features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    text-align: left;
+    border-radius: 25px;
+  }
+  .section-packages .features1 {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    text-align: left;
+    padding: 20px;
+    border-radius: 25px;
+    background-color: #DDA6D6;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .section-packages .features li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+  .section-packages .features li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #e94bff;
+    font-weight: bold;
+  }
+  .section-packages .features1 li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+  .section-packages .features1 li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #e94bff;
+    font-weight: bold;
+  }
+  
+  /* === NÚT ĐĂNG KÝ === */
+  .section-packages .card .btn {
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .section-packages .btn-primary {
+    background: linear-gradient(90deg, #EE6067 0%, #B77BD8 74%, #A485FF 100%);
+    border: 2px solid #fff;
+    color: #fff;
+  }
+  .section-packages .btn-primary:hover {
+    background: #fff;
+    color: #000;
+  }
+  .section-packages .btn-secondary {
+    background: transparent;
+    color: #fff;
+    box-shadow: 0 0 10px #fff;
+  }
+  .section-packages .btn-secondary:hover {
+    opacity: 0.85;
+  }
+  /* ================== RESPONSIVE CHUNG ================== */
+
+/* Thiết bị nhỏ: điện thoại dưới 576px */
+@media (max-width: 575.98px) {
+  .detailservice-section h1 {
+    font-size: 2rem;
+  }
+
+  .detailservice-section p {
+    font-size: 0.95rem;
+    padding: 0 10px;
+  }
+
+  .detailservice-tabs {
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 10px;
+  }
+
+  .section-packages .detailservice-cards {
+    grid-template-columns: 1fr;
+    padding: 0 15px 60px;
+  }
+
+  .section-packages .card {
+    padding: 25px 15px;
+  }
+
+  .section-packages .card h3 {
+    font-size: 1.3rem;
+  }
+
+  .section-packages .card .price {
+    font-size: 1.8rem;
+  }
+
+  .section-packages .btn {
+    width: 100%;
+  }
+}
+
+/* Thiết bị trung bình: tablet 576px – 991px */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .detailservice-section h1 {
+    font-size: 2.2rem;
+  }
+
+  .detailservice-section p {
+    font-size: 1rem;
+    padding: 0 20px;
+  }
+
+  .detailservice-tabs {
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .section-packages .detailservice-cards {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px 80px;
+  }
+
+  .section-packages .card {
+    padding: 30px 20px;
+  }
+
+  .section-packages .card h3 {
+    font-size: 1.4rem;
+  }
+
+  .section-packages .card .price {
+    font-size: 2rem;
+  }
+}
+
+/* Laptop nhỏ / màn hình vừa: 992px – 1200px */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .detailservice-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .section-packages .detailservice-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* ===== CARD ACTIVE ===== */
+.section-packages .card.active {
+  background: linear-gradient(180deg, #EE6067 0%, #7765FF 100%);
+  color: #fff;
+  box-shadow: 0 0 30px rgba(233, 75, 255, 0.6);
+  transform: translateY(-10px); /* Nhẹ nhàng nổi bật */
+  z-index: 2;
+  position: relative;
+}

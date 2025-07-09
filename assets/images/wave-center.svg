@@ -1,0 +1,22 @@
+<svg width="700" height="700" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wave-gradient" x1="0" y1="0" x2="700" y2="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FAD0C4"/>
+      <stop offset="100%" stop-color="#A1C4FD"/>
+    </linearGradient>
+  </defs>
+  <g opacity="0.65">
+    <path d="M120,350 Q180,120 350,110 Q520,120 580,350 Q640,580 350,590 Q60,580 120,350 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M135,355 Q195,135 350,125 Q505,135 565,355 Q625,575 350,585 Q75,575 135,355 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M150,360 Q210,150 350,140 Q490,150 550,360 Q610,570 350,580 Q90,570 150,360 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M165,365 Q225,165 350,155 Q475,165 535,365 Q595,565 350,575 Q105,565 165,365 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M180,370 Q240,180 350,170 Q460,180 520,370 Q580,560 350,570 Q120,560 180,370 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M195,375 Q255,195 350,185 Q445,195 505,375 Q565,555 350,565 Q135,555 195,375 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M210,380 Q270,210 350,200 Q430,210 490,380 Q550,550 350,560 Q150,550 210,380 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M225,385 Q285,225 350,215 Q415,225 475,385 Q535,545 350,555 Q165,545 225,385 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M240,390 Q300,240 350,230 Q400,240 460,390 Q520,540 350,550 Q180,540 240,390 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M255,395 Q315,255 350,245 Q385,255 445,395 Q505,535 350,545 Q195,535 255,395 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M270,400 Q330,270 350,260 Q370,270 430,400 Q490,530 350,540 Q210,530 270,400 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+    <path d="M285,405 Q345,285 350,275 Q355,285 415,405 Q475,525 350,535 Q225,525 285,405 Z" stroke="url(#wave-gradient)" stroke-width="1" fill="none"/>
+  </g>
+</svg> 
