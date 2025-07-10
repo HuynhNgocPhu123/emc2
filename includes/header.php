@@ -24,19 +24,19 @@
               <ul>
                 <li class="emc-sidebar-item active" data-category="0">
                   
-                  <span>Tất Cả</span>
+                  <center><span>Tất Cả</span></center>
                 </li>
                 <li class="emc-sidebar-item" data-category="1">
                   
-                  <span>Công Nghệ</span>
+                  <center><span>Công Nghệ</span></center>
                 </li>
                 <li class="emc-sidebar-item" data-category="2">
                 
-                  <span>Marketing</span>
+                  <center><span>Marketing</span></center>
                 </li>
                 <li class="emc-sidebar-item" data-category="3">
    
-                  <span>Media</span>
+                  <center><span>Media</span></center>
                 </li>
               </ul>
             </div>
@@ -169,233 +169,249 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <style>
   /* Service Dropdown Styles - DARK THEME */
-.has-service-dropdown { 
-  position: relative; 
-}
+  .has-service-dropdown { 
+    position: relative; 
+  }
 
-.emc-service-dropdown {
-  display: none;
-  position: fixed;
-  top: 60px; 
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 750px;
-  background: #1a1a1a;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 1.5px 8px rgba(0,0,0,0.3);
-  border: 1px solid #333;
-  z-index: 2000;
-  padding: 0;
-  flex-direction: row;
-}
-
-/* SIDEBAR MENU - DARK THEME */
-.emc-sidebar-menu {
-  min-width: 170px;
-  max-width: 190px;
-  border-right: 1px solid #333;
-  background: #0f0f0f;
-  padding: 24px 0 24px 14px;
-  border-radius: 16px 0 0 16px;
-  /* QUAN TRỌNG: Đảm bảo hiển thị dọc */
-  display: flex;
-  flex-direction: column;
-}
-
-.emc-sidebar-menu ul { 
-  list-style: none; 
-  padding: 0; 
-  margin: 0; 
-  width: 100%;
-  /* QUAN TRỌNG: Đảm bảo ul cũng hiển thị dọc */
-  display: flex;
-  flex-direction: column;
-}
-
-.emc-sidebar-item {
-  /* QUAN TRỌNG: Đảm bảo mỗi item hiển thị dọc */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  padding: 12px 12px 12px 0;
-  border-radius: 8px;
-  font-weight: 500;
-  color: #e0e0e0;
-  transition: background 0.2s, color 0.2s;
-  font-size: 15px;
-  margin-bottom: 8px;
-  min-width: 120px;
-  background: none;
-  border: none;
-  width: 100%;
-  justify-content: flex-start;
-}
-
-.emc-sidebar-item img { 
-  width: 28px; 
-  height: 28px; 
-  margin-right: 7px;
-  flex-shrink: 0;
-}
-
-.emc-sidebar-item span {
-  white-space: nowrap;
-}
-
-.emc-sidebar-item.active,
-.emc-sidebar-item:hover {
-  background: #1DA1F2;
-  color: #fff;
-}
-
-/* SERVICE GRID - DARK THEME */
-.emc-service-grid {
-  flex: 1;
-  padding: 24px 20px;
-  min-width: 500px;
-  max-height: 400px;
-  overflow-y: auto;
-  background: #1a1a1a;
-}
-
-.emc-service-group-row { 
-  margin-bottom: 20px;
-  display: block;
-}
-
-.emc-group-title {
-  font-weight: bold; 
-  font-size: 16px; 
-  color: #1DA1F2; 
-  margin-bottom: 12px;
-  padding-left: 4px;
-}
-
-.emc-group-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 cột */
-  gap: 16px;
-  align-items: start;
-}
-
-.emc-service-cell {
-  background: #2a2a2a;
-  border-radius: 12px;
-  padding: 16px;
-  min-height: 110px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  transition: all 0.2s ease;
-  border: 1px solid #333;
-}
-
-.emc-service-cell:hover {
-  box-shadow: 0 4px 16px rgba(29, 161, 242, 0.3);
-  transform: translateY(-2px);
-  border-color: #1DA1F2;
-  background: #333;
-}
-
-.emc-service-cell a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  width: 100%;
-}
-
-.emc-service-cell img { 
-  width: 32px; 
-  height: 32px; 
-  margin-bottom: 8px;
-  border-radius: 4px;
-}
-
-.emc-service-cell b { 
-  font-size: 15px; 
-  color: #1DA1F2;
-  margin-bottom: 4px;
-  display: block;
-}
-
-.emc-service-cell .desc { 
-  color: #bbb; 
-  font-size: 13px; 
-  line-height: 1.4;
-  margin-top: 4px;
-}
-
-/* All grid for category 0 */
-.emc-service-all-grid { 
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 cột */
-  gap: 16px;
-}
-
-/* Responsive */
-@media (max-width: 1100px) {
-  .emc-service-dropdown { 
-    min-width: 90vw; 
+  .emc-service-dropdown {
+    display: none;
+    position: fixed;
+    top: 65px; 
     left: 50%;
     transform: translateX(-50%);
-    top: 90px;
+    min-width: 750px;
+    max-height: 450px; /* Tăng chiều cao để ẩn thanh cuộn */
+    background:rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 1.5px 8px rgba(0,0,0,0.3);
+    border: 1px solid #333;
+    z-index: 2000;
+    padding: 0;
+    flex-direction: row;
+    overflow: hidden; /* Ẩn thanh cuộn của container chính */
   }
-  .emc-group-list,
-  .emc-service-all-grid { 
-    grid-template-columns: repeat(2, 1fr); /* 2 cột trên tablet */
-  }
-}
-
-@media (max-width: 800px) {
-  .emc-service-dropdown { 
+  /* SIDEBAR MENU - DARK THEME */
+  .emc-sidebar-menu {
+    min-width: 170px;
+    max-width: 190px;
+    border-right: 1px solid #333;
+    background: #0f0f0f;
+    padding: 24px 16px; /* Đều 2 bên */
+    border-radius: 16px 0 0 16px;
+    /* QUAN TRỌNG: Đảm bảo hiển thị dọc */
+    display: flex;
     flex-direction: column;
-    min-width: 95vw;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 80px;
   }
-  
-  .emc-sidebar-menu { 
-    border: none; 
-    border-bottom: 1px solid #eee; 
-    min-width: unset;
-    max-width: unset;
-    /* QUAN TRỌNG: Trên mobile chuyển thành ngang để tiết kiệm không gian */
+  .emc-sidebar-menu ul { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+    width: 100%;
+    /* QUAN TRỌNG: Đảm bảo ul cũng hiển thị dọc */
+    display: flex;
+    flex-direction: column;
+  }
+  .emc-sidebar-item {
+    /* QUAN TRỌNG: Đảm bảo mỗi item hiển thị dọc */
+    display: flex;
     flex-direction: row;
-    padding: 16px;
-    overflow-x: auto;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 12px; /* Đều 4 phía */
+    border-radius: 8px;
+    font-weight: 500;
+    color: #e0e0e0;
+    transition: background 0.2s, color 0.2s;
+    font-size: 15px;
+    margin-bottom: 8px;
+    min-width: 120px;
+    background: none;
+    border: none;
+    width: 100%;
+    justify-content: center;
   }
-  
-  .emc-sidebar-menu ul {
-    /* QUAN TRỌNG: Trên mobile chuyển thành ngang */
-    flex-direction: row;
-    gap: 8px;
-    white-space: nowrap;
-  }
-  
-  .emc-sidebar-item { 
-    border-radius: 8px; 
-    font-size: 14px; 
-    margin-bottom: 0;
-    margin-right: 8px;
-    min-width: 100px;
+
+  .emc-sidebar-item img { 
+    width: 28px; 
+    height: 28px; 
+    margin-right: 7px;
     flex-shrink: 0;
   }
-  
-  .emc-group-list,
-  .emc-service-all-grid { 
-    grid-template-columns: 1fr; /* 1 cột trên mobile */
-  }
-}
 
-@media (max-width: 600px) {
-  .emc-service-dropdown {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 70px;
+  .emc-sidebar-item span {
+    white-space: nowrap;
   }
-}
+
+  .emc-sidebar-item.active,
+  .emc-sidebar-item:hover {
+    background: linear-gradient(91.57deg, #FF1CC6 -1.02%, #7765FF 36.25%);
+    color: #fff;
+  }
+
+  /* SERVICE GRID - DARK THEME */
+  .emc-service-grid {
+    flex: 1;
+    padding: 24px 20px;
+    min-width: 500px;
+    max-height: 450px; /* Tăng chiều cao */
+    overflow-y: auto;
+    background: #1a1a1a;
+    /* Ẩn thanh cuộn */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  /* Ẩn thanh cuộn cho webkit browsers */
+  .emc-service-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .emc-service-group-row { 
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  /* UPDATED: Gradient text color cho tiêu đề nhóm */
+  .emc-group-title {
+    font-weight: bold; 
+    font-size: 16px; 
+    background: linear-gradient(91.57deg, #FF1CC6 -1.02%, #7765FF 36.25%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+
+  .emc-group-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cột */
+    gap: 16px;
+    align-items: start;
+  }
+
+  .emc-service-cell {
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 110px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.2s ease;
+    border: 1px solid #333;
+  }
+
+  .emc-service-cell:hover {
+    box-shadow: 0 4px 16px rgba(29, 161, 242, 0.3);
+    transform: translateY(-2px);
+    border-color: #1DA1F2;
+    background: #333;
+  }
+
+  .emc-service-cell a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+  }
+
+  .emc-service-cell img { 
+    width: 32px; 
+    height: 32px; 
+    margin-bottom: 8px;
+    border-radius: 4px;
+  }
+
+  /* UPDATED: Gradient text color cho tiêu đề service */
+  .emc-service-cell b { 
+    font-size: 15px; 
+    background: linear-gradient(91.57deg, #FF1CC6 -1.02%, #7765FF 36.25%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+    display: block;
+    font-weight: 600;
+  }
+
+  .emc-service-cell .desc { 
+    color: #bbb; 
+    font-size: 13px; 
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+
+  /* All grid for category 0 */
+  .emc-service-all-grid { 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cột */
+    gap: 16px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .emc-service-dropdown { 
+      min-width: 90vw; 
+      left: 50%;
+      transform: translateX(-50%);
+      top: 90px;
+    }
+    .emc-group-list,
+    .emc-service-all-grid { 
+      grid-template-columns: repeat(2, 1fr); /* 2 cột trên tablet */
+    }
+  }
+
+  @media (max-width: 800px) {
+    .emc-service-dropdown { 
+      flex-direction: column;
+      min-width: 95vw;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 80px;
+    }
+    
+    .emc-sidebar-menu { 
+      border: none; 
+      border-bottom: 1px solid #eee; 
+      min-width: unset;
+      max-width: unset;
+      /* QUAN TRỌNG: Trên mobile chuyển thành ngang để tiết kiệm không gian */
+      flex-direction: row;
+      padding: 16px;
+      overflow-x: auto;
+    }
+    
+    .emc-sidebar-menu ul {
+      /* QUAN TRỌNG: Trên mobile chuyển thành ngang */
+      flex-direction: row;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    
+    .emc-sidebar-item { 
+      border-radius: 8px; 
+      font-size: 14px; 
+      margin-bottom: 0;
+      margin-right: 8px;
+      min-width: 100px;
+      flex-shrink: 0;
+    }
+    
+    .emc-group-list,
+    .emc-service-all-grid { 
+      grid-template-columns: 1fr; /* 1 cột trên mobile */
+    }
+  }
+
+  @media (max-width: 600px) {
+    .emc-service-dropdown {
+      left: 50%;
+      transform: translateX(-50%);
+      top: 70px;
+    }
+  }
 </style>
