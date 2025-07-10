@@ -1,3 +1,45 @@
+<?php
+include_once("controller/getservice.php");
+$p = new Gservice();
+
+// Lấy tất cả dịch vụ không phân biệt danh mục
+$services = $p->getalldichvu();
+
+$all_services = [];
+
+if ($services && $services != false) {
+  while ($row = $services->fetch_assoc()) {
+    $all_services[] = [
+      'id' => $row['id_dichvu'],
+      'title' => $row['tendichvu'],
+      'danhmuc' => $row['ten_danhmucdichvu'],  // ví dụ: "Marketing Online"
+      'image' => $row['hinhanh'] ?? 'default.png',
+      'is_hot' => $row['hot'] ?? 0,
+    ];
+  }
+}
+
+// Lấy danh sách danh mục duy nhất
+$unique_categories = array_unique(array_column($all_services, 'danhmuc'));
+
+// Đếm số dịch vụ theo từng danh mục
+$category_counts = [];
+$total_count = 0;
+
+foreach ($all_services as $service) {
+  $cat = $service['danhmuc'];
+  $category_counts[$cat] = ($category_counts[$cat] ?? 0) + 1;
+  $total_count++;
+}
+$category_id_map = [
+  'Công nghệ' => 1,
+  'Marketing' => 2,
+  'Media' => 3
+];
+
+?>
+
+
 <link rel="stylesheet" href="assets/css/home.css">
 <body>
 
@@ -324,85 +366,54 @@
             tiếp cận đúng khách hàng và tăng trưởng hiệu quả
         </p>
 
-        <div class="container">
-            <div class="filter-buttons">
-                <button class="btn active" data-filter="all">Tất cả [20]</button>
-                <button class="btn" data-filter="Marketing Online">Marketing Online [10]</button>
-                <button class="btn" data-filter="Digital Marketing">Digital Marketing [5]</button>
-                <button class="btn" data-filter="Branding">Branding [5]</button>
-            </div>
+       <div class="container">
+  <!-- FILTER BUTTONS -->
+  <div class="filter-buttons">
+    <button class="btn active" data-filter="all">Tất cả [<?= $total_count ?>]</button>
+    <?php foreach ($category_counts as $cat => $count): ?>
+      <button class="btn" data-filter="<?= htmlspecialchars($cat) ?>">
+        <?= htmlspecialchars($cat) ?> [<?= $count ?>]
+      </button>
+    <?php endforeach; ?>
+  </div>
 
-            <div class="service-grid">
-                <div class="service-card view-all" data-category="all">
-                    <div class="view-label">Xem<br>Tất cả</div>
-                </div>
+  <!-- SERVICE GRID -->
+  <div class="service-grid">
+    <!-- "Xem tất cả" sẽ được JS điều chỉnh link động -->
+    <a href="index.php?service" class="service-card view-all" data-category="all" data-category-link="all">
+      <div class="view-label">Xem<br>Tất cả</div>
+    </a>
 
-                <div class="service-card hot" data-category="Marketing Online">
-                    <img src="assets/images/marketing.png" alt="Social Marketing" />
-                    <div class="card-content">
-                        <h3>Marketing Online<br>2025</h3>
-                        <h3>Social Marketing</h3>
-                    </div>
-                </div>
-
-                <!-- <div class="service-card" data-category="Marketing Online">
-                    <img src="assets/images/maketing.png" alt="Phòng Marketing" />
-                    <div class="card-content">
-                        <h3>Phòng Marketing</h3>
-                        <p>Đội ngũ marketing thuê ngoài giúp tăng trưởng bền vững.</p>
-                        <span class="handle">pmkt</span>
-                    </div>
-                </div> -->
-
-                <div class="service-card hot" data-category="Marketing Online">
-                    <img src="assets/images/marketing.png" alt="Seeding Đa Kênh" />
-                    <div class="card-content">
-                        <h3>Marketing Online<br>2025</h3>
-                        <h3>Seeding Đa Kênh</h3>
-                    </div>
-                </div>
-
-                <div class="service-card" data-category="Marketing Online">
-                    <img src="assets/images/marketing.png" alt="Chăm sóc FanPage" />
-                    <div class="card-content">
-                        <h3>Marketing Online<br>2025</h3>
-                        <h3>Chăm sóc FanPage</h3>
-                    </div>
-                </div>
-
-                <div class="service-card" data-category="Digital Marketing">
-                    <img src="assets/images/marketing.png" alt="Sản xuất Nội dung" />
-                    <div class="card-content">
-                        <h3>Digital Marketing<br>2025</h3>
-                        <h3>Sản xuất Nội dung</h3>
-                    </div>
-                </div>
-
-                <div class="service-card hot" data-category="Branding">
-                    <img src="assets/images/marketing.png" alt="Thiết kế Thương hiệu" />
-                    <div class="card-content">
-                        <h3>Branding<br>2025</h3>
-                        <h3>Thiết kế Thương hiệu</h3>
-                    </div>
-                </div>
-
-                <div class="service-card" data-category="Branding">
-                    <img src="assets/images/marketing.png" alt="Buff Like & Comment" />
-                    <div class="card-content">
-                        <h3>Branding<br>2025</h3>
-                        <h3>Buff Like & Comment</h3>
-                    </div>
-                </div>
-
-                <div class="service-card" data-category="Digital Marketing">
-                    <img src="assets/images/marketing.png" alt="Quảng cáo Đa nền tảng" />
-                    <div class="card-content">
-                        <h3>Digital Marketing<br>2025</h3>
-                        <h3>Quảng cáo Đa nền tảng</h3>
-                    </div>
-                </div>
-            </div>
+    <!-- CÁC DỊCH VỤ -->
+    <?php foreach ($all_services as $service): ?>
+      <a href="index.php?service&detailservice=<?= urlencode($service['id']) ?>"
+         class="service-card <?= $service['is_hot'] ? 'hot' : '' ?>"
+         data-category="<?= htmlspecialchars($service['danhmuc']) ?>">
+        <img src="assets/images/<?= htmlspecialchars($service['image']) ?>" alt="<?= htmlspecialchars($service['title']) ?>" />
+        <div class="card-content">
+          <h3><?= htmlspecialchars($service['danhmuc']) ?><br>2025</h3>
+          <h3><?= htmlspecialchars($service['title']) ?></h3>
         </div>
+      </a>
+    <?php endforeach; ?>
+  </div>
+</div>
+
+<style>
+  .service-card {
+  text-decoration: none;      /* Bỏ gạch chân */
+  color: inherit;             /* Giữ nguyên màu chữ */
+  display: block;             /* Đảm bảo toàn bộ thẻ hoạt động như block */
+}
+
+.service-card h3,
+.service-card p {
+  text-decoration: none;      /* Đảm bảo không bị gạch */
+}
+
+</style>
+
+
 </section>
 
 <section class="experience-section">
@@ -675,3 +686,50 @@
 
 </body>
 </html>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-buttons .btn");
+    const serviceCards = document.querySelectorAll(".service-card");
+    const viewAllCard = document.querySelector(".service-card.view-all");
+
+    const categoryLinks = {
+      "Công nghệ": "1",
+      "Marketing": "2",
+      "Media": "3"
+    };
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Active class
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const filter = button.getAttribute("data-filter");
+
+        // Cập nhật href cho ô "Xem tất cả"
+        if (filter === "all") {
+          viewAllCard.style.display = "block";
+          viewAllCard.setAttribute("href", "index.php?service");
+        } else {
+          const catId = categoryLinks[filter] || '';
+          viewAllCard.style.display = "block";
+          viewAllCard.setAttribute("href", `index.php?service=&category=${catId}`);
+        }
+
+        // Hiển thị dịch vụ theo filter
+        serviceCards.forEach(card => {
+          const category = card.getAttribute("data-category");
+
+          if (card.classList.contains("view-all")) {
+            card.style.display = "block"; // luôn hiển thị ô "Xem tất cả"
+          } else if (filter === "all" || category === filter) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+  });
+</script>
+

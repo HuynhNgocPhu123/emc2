@@ -2,10 +2,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <body>
-<!-- <div class="abstract-shape shape-2"></div> -->
-
+<div class="abstract-shape shape-1"></div>
 <section class="experience-section">
-  <div class="experience-text">
+<div class="bg-effect"></div>
+<div class="abstract-shape shape-2"></div>
+<div class="experience-text">
     <h1>EMC GROUP</h1>
     <h2>Trang dịch vụ - giải pháp toàn diện cho doanh nghiệp</h2>
     <p>
@@ -13,23 +14,6 @@
       giúp doanh nghiệp và tổ chức tối ưu hóa quy trình, nâng cao hiệu suất và tạo ra giá trị bền vững.
     </p>
   </div>
-  <div class="hero-section">
-
-        <div class="hero-content">
-            <div class="hero-text new-hero-layout"> <h2>Chúng tôi cam kết</h2>
-            
-                <ul>
-                    <li><i class="fas fa-check"></i> Kết quả đo lường được - Báo cáo minh bạch theo KPI cụ thể</li>
-                    <li><i class="fas fa-check"></i> Chuyên gia đầu ngành - Giải pháp tối ưu cho từng doanh nghiệp</li>
-                    <li><i class="fas fa-check"></i> Hỗ trợ tận tâm - Đồng hành 24/7 đến khi thành công</li>
-                    <li><i class="fas fa-check"></i> Hoàn tiền 150% nếu không đạt thỏa thuận</li>
-                </ul>
-                <button class="btn btn-primary new-hero-btn">Nhận tư vấn ngay</button>
-            </div>
-            <div class="hero-image new-hero-image">  <img src="assets/images/robot.png" alt="AI Robot" class="main-commitment-img" id="robotImage"> 
-            </div>
-        </div>
-    </div>
 </section>
 
     
@@ -73,9 +57,9 @@ if ($services && $services != false) {
 
  <div class="filter-bar">
   <button class="category-button" data-category="0" onclick="filterByCategory(0)">Tất cả</button>
-  <button class="category-button" data-category="1" onclick="filterByCategory(1)">Công nghệ</button>
-  <button class="category-button" data-category="2" onclick="filterByCategory(2)">Marketing</button>
   <button class="category-button" data-category="3" onclick="filterByCategory(3)">Media</button>
+  <button class="category-button" data-category="2" onclick="filterByCategory(2)">Marketing</button>
+  <button class="category-button" data-category="1" onclick="filterByCategory(1)">Công nghệ</button>
 </div>
  
   <div class="filter-az">
@@ -112,7 +96,7 @@ if ($services && $services != false) {
 </section>
 
 
-<section class="webdev-benefit-section">
+<section class="webdev-benefit-section"> 
   <div class="webdev-floating-shapes">
     <div class="webdev-shape"></div>
     <div class="webdev-shape"></div>
@@ -133,7 +117,7 @@ if ($services && $services != false) {
         <img src="assets/images/kn.png" alt="Icon" />
         </div>
         <h3 class="webdev-card-title">Kinh Nghiệm</h3>
-        <p class="webdev-card-desc">Kinh nghiệm là điều quan trọng, và việc thuê chúng tôi có nghĩa là bạn đang thuê những chuyên gia có nhiều năm kinh nghiệm để thực hiện các dự án của bạn một cách chính xác. Chúng tôi cũng có một hệ thống quản lý dự án hiệu quả để đáp ứng các yêu cầu của bạn. Kết nối với chúng tôi cho phép bạn tiếp cận một nguồn nhân lực lớn có thể hoàn thành nhiệm vụ của bạn trong thời gian đã định.</p>
+        <p class="webdev-card-desc">Kinh nghiệm tạo nên sự khác biệt, và chúng tôi là đội ngũ chuyên gia đáng tin cậy cho dự án của bạn.</p>
       </div>
 
       <div class="webdev-card">
@@ -141,7 +125,7 @@ if ($services && $services != false) {
         <img src="assets/images/dn.png" alt="Icon" />
         </div>
         <h3 class="webdev-card-title">Đội Ngũ Tận Tâm</h3>
-        <p class="webdev-card-desc">Mỗi người đều có sở thích riêng của mình, vì vậy chúng tôi không trộn lẫn các lĩnh vực chức năng khác nhau. Chúng tôi có các đội ngũ chuyên trách cho thiết kế và đồ họa. Trong khi các nhà phát triển web của chúng tôi hoàn thành phần thiết kế, chúng tôi có đội ngũ thiết kế đồ họa riêng đảm nhận tất cả các hình ảnh chất lượng cho một trang web thành công.</p>
+        <p class="webdev-card-desc">Chúng tôi tách biệt chuyên môn, với đội ngũ phát triển và thiết kế đồ họa riêng biệt để đảm bảo chất lượng tối ưu cho mỗi dự án.</p>
       </div>
 
       <div class="webdev-card">
@@ -149,21 +133,36 @@ if ($services && $services != false) {
         <img src="assets/images/tg.png" alt="Icon" />
         </div>
         <h3 class="webdev-card-title">Thời Gian Nhanh Chóng</h3>
-        <p class="webdev-card-desc">Chúng tôi hướng tới việc cung cấp công việc chất lượng trong thời gian cố định và do đó cam kết mang đến giải pháp khi khách hàng cần mà không để họ phải chờ đợi và vượt quá thời gian đã định. Chúng tôi lập kế hoạch phù hợp và cũng thường xuyên cập nhật cho khách hàng về tiến độ để đạt được những gì bạn mong muốn. Chúng tôi lắng nghe tầm nhìn của bạn.</p>
+        <p class="webdev-card-desc">Chúng tôi cam kết hoàn thành đúng hạn, luôn lắng nghe và cập nhật tiến độ để hiện thực hóa tầm nhìn của bạn.</p>
       </div>
-    </div>
-
-    <div class="webdev-grid webdev-grid-bottom">
-      <div class="webdev-card webdev-card-center">
+      <div class="webdev-card ">
         <div class="webdev-icon">
         <img src="assets/images/gc.png" alt="Icon" />
         </div>
         <h3 class="webdev-card-title">Giá Cả Cạnh Tranh</h3>
-        <p class="webdev-card-desc">Giá cả là một yếu tố quan trọng mà mọi chủ doanh nghiệp đều xem xét khi thuê một công ty phát triển web. Chúng tôi là công ty tốt nhất trên thị trường và cung cấp mức giá cạnh tranh cho khách hàng, đáp ứng tất cả các yêu cầu của khách hàng với hiệu suất cao hơn.</p>
+        <p class="webdev-card-desc">Chúng tôi cam kết mang đến mức giá cạnh tranh nhất trên thị trường, đảm bảo chất lượng cao nhất cho khách hàng.</p>
       </div>
     </div>
+
   </div>
 </section>
+<div class="hero-section">
+<div class="bg-effect1"></div>
+<div class="hero-content">
+    <div class="hero-text new-hero-layout"> <h2>Chúng tôi cam kết</h2>
+    
+        <ul>
+            <li><i class="fas fa-check"></i> Kết quả đo lường được - Báo cáo minh bạch theo KPI cụ thể</li>
+            <li><i class="fas fa-check"></i> Chuyên gia đầu ngành - Giải pháp tối ưu cho từng doanh nghiệp</li>
+            <li><i class="fas fa-check"></i> Hỗ trợ tận tâm - Đồng hành 24/7 đến khi thành công</li>
+            <li><i class="fas fa-check"></i> Hoàn tiền 150% nếu không đạt thỏa thuận</li>
+        </ul>
+        <button class="btn btn-primary new-hero-btn">Nhận tư vấn ngay</button>
+    </div>
+    <div class="hero-image new-hero-image">  <img src="assets/images/robot.png" alt="AI Robot" class="main-commitment-img" id="robotImage"> 
+    </div>
+</div>
+</div>
 
 
 <section id="faq-section" class="faq-py">

@@ -960,24 +960,7 @@
     <!-- Combo hot tháng này -->
     <div class="section-title">
         Combo hot tháng này
-        <div class="search-box">
-            <div class="search-inner">
-                <input type="text" class="search-input" placeholder="Tìm combo bạn cần...">
-                <span style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); pointer-events: none;">
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="15" cy="15" r="12" stroke="url(#search-gradient)" stroke-width="2.5" fill="none"/>
-                    <line x1="23.5" y1="23.5" x2="30" y2="30" stroke="url(#search-gradient)" stroke-width="2.5" stroke-linecap="round"/>
-                    <defs>
-                      <linearGradient id="search-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#ffb6b9"/>
-                        <stop offset="0.5" stop-color="#a259ff"/>
-                        <stop offset="1" stop-color="#3b82f6"/>
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </span>
-            </div>
-        </div>
+        
     </div>
     <div class="packages-grid">
         <?php if ($data_small_combo && $data_small_combo != false) {
