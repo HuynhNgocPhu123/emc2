@@ -14,8 +14,12 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <!-- Banner từ index2.html -->
 <div class="banner-index2">
+<div class="bg-circle-glow"></div>
+  <!-- SVG nền trang trí -->
+  <img src="assets/images/group-472000.svg" alt="Decorative Background"
+     style="position:absolute; left:55%; top:100px; transform:translateX(-50%); width:60vw; max-width:900px; z-index:0; pointer-events:none; opacity:0.7;" />
   <!-- Các thành phần còn lại giữ nguyên -->
-  <div class="rectangle-347615690"></div>
+  <div class="rectangle-347615694"></div>
   <img class="rectangle-347615694" src="assets/images/rectangle-3476156940.svg" alt="">
   <div class="theo-y-u-c-u">Theo yêu cầu</div>
   <div class="thi-t-k-ux-ui">Thiết Kế UX – UI</div>
@@ -57,7 +61,7 @@
     </div>
   </div>
   <img class="flash" src="assets/images/flash0.svg" alt="">
-  <img class="e-2-c-0-d-487-a-30-f-4-b-40-93-ce-74-cce-2-e-8-a-815-removebg-preview-1" src="assets/images/robotCamLoa.png" alt="" />
+  <img class="e-2-c-0-d-487-a-30-f-4-b-40-93-ce-74-cce-2-e-8-a-815-removebg-preview-1 mascot-flip" src="assets/images/robotCamLoa.png" alt="" />
 </div>
 <!-- Hết banner -->
 <style>
@@ -182,6 +186,35 @@
             border-radius: 50%;
             z-index: 1;
             animation: pulse 3s ease-in-out infinite;
+        }
+
+        .bg-circle-glow {
+            position: absolute;
+            left: -200px;
+            right: a;
+            top: -100px;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(123,47,242,0.45) 0%, rgba(29,36,162,0.18) 60%, transparent 100%);
+            opacity: 1;
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(40px);
+        }
+
+        .bg-circle-gloww {
+            position: absolute;
+            right: -200px;
+            top: 1900px;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(123,47,242,0.45) 0%, rgba(29,36,162,0.18) 60%, transparent 100%);
+            opacity: 1;
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(40px);
         }
 
         .mascot-shadow {
@@ -533,27 +566,39 @@
             margin-bottom: 0;
             align-items: end;
         }
-        .package-card {
-            background: rgba(20, 20, 30, 0.7);
-            border-radius: 56px !important;
-            border: 3px solid #a259ff;
-            box-shadow: 0 4px 32px 0 #57298b55;
+        .package-card, .package-card:hover {
+            background: rgba(20, 20, 30, 0.45);
+            border-radius: 32px !important;
+            border: 1.5px solid #C73E2C;
+            box-shadow: none !important;
             padding: 32px 28px 24px 28px;
             color: #fff;
             position: relative;
             overflow: hidden;
             min-width: 320px;
             max-width: 420px;
+            width: 420px;
+            height: 600px;
+            overflow-y: auto;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             margin: 16px auto;
             backdrop-filter: blur(12px);
             transition: box-shadow 0.3s, border-color 0.3s;
-            position: relative;
             padding-bottom: 36px;
+            background-clip: padding-box;
+            border-image: none !important;
+        }
+        .package-card::before {
+            border-radius: 32px;
         }
         .package-card:hover {
-            border: 3px solid transparent;
-            border-radius: 56px !important;
-            box-shadow: 0 0 0 3px #ff2bc2, 0 8px 48px 0 #e54a2a55;
+            border-radius: 32px !important;
+            border: 1.5px solid;
+            border-image: linear-gradient(180deg, #C73E2C 0%, #8620A3 100%) 1;
+            box-shadow: none !important;
         }
         .package-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
         .package-title {
@@ -572,11 +617,11 @@
         .promo-badge { display: none !important; }
         .package-price {
             font-family: 'Afacad', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 2rem;
+            font-size: 2.5rem; /* hoặc 2.8rem, 3rem tùy ý */
             font-weight: 700;
             font-style: italic;
             margin-bottom: 20px;
-            margin-top: -4px;
+            margin-top: 100px;
             line-height: 1.1;
             background: linear-gradient(90deg, #57298B 0%, #E54A2A 100%);
             -webkit-background-clip: text;
@@ -590,7 +635,7 @@
         .feature-item {
             font-family: 'Afacad', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 500;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: #fff;
             line-height: 1.3;
             letter-spacing: 0;
@@ -791,7 +836,39 @@
 </section>
 
 <!-- SECTION DỊCH VỤ DOANH NGHIỆP BẮT ĐẦU -->
-<section class="business-packages">
+<section class="business-packages" style="position: relative; z-index: 1;">
+    <svg class="svg-glow-bg-1" width="865" height="1660" viewBox="0 0 865 1660" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#filter0_f_953_7961)">
+        <circle cx="830" cy="830" r="453" fill="url(#paint0_linear_953_7961)" fill-opacity="0.3"/>
+      </g>
+      <defs>
+        <filter id="filter0_f_953_7961" x="0.5" y="0.499939" width="1659" height="1659" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feGaussianBlur stdDeviation="188.25" result="effect1_foregroundBlur_953_7961"/>
+        </filter>
+        <linearGradient id="paint0_linear_953_7961" x1="830" y1="377" x2="830" y2="1283" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1E92FF" stop-opacity="0.8"/>
+          <stop offset="1" stop-color="#C30EFF"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <svg class="svg-glow-bg-2" width="865" height="1660" viewBox="0 0 865 1660" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#filter0_f_953_7961)">
+        <circle cx="830" cy="830" r="453" fill="url(#paint0_linear_953_7961)" fill-opacity="0.3"/>
+      </g>
+      <defs>
+        <filter id="filter0_f_953_7961" x="0.5" y="0.499939" width="1659" height="1659" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feGaussianBlur stdDeviation="188.25" result="effect1_foregroundBlur_953_7961"/>
+        </filter>
+        <linearGradient id="paint0_linear_953_7961" x1="830" y1="377" x2="830" y2="1283" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1E92FF" stop-opacity="0.8"/>
+          <stop offset="1" stop-color="#C30EFF"/>
+        </linearGradient>
+      </defs>
+    </svg>
     <br>
     <div class="header">
         <div class="tab-buttons">
@@ -803,8 +880,11 @@
     <!--Doanh nghiệp lớn-->
     <div id="large-business" class="tab-content active">
     <!-- Combo hot tháng này -->
-    <div class="section-title">Combo hot tháng này</div>
-    <div class="packages-grid">
+    <div style="position:relative;">
+      <img src="assets/images/group-472000.svg" alt="Decorative Background Combo"
+           style="position:absolute; left:50%; top:45px; transform:translateX(-50%); width:60vw; max-width:900px; z-index:0; pointer-events:none; opacity:0.7;" />
+      <div class="section-title">Combo hot tháng này</div>
+      <div class="packages-grid">
         <?php if ($data_large && $data_large != false) {
             while($row = $data_large->fetch_assoc()) { ?>
                 <div class="package-card">
@@ -840,6 +920,7 @@
         <?php }} else {
             echo "<p>Không có gói khuyến mãi nào.</p>";
         } ?>
+      </div>
     </div>
 
     <!-- Ưu đãi dài hạn -->
@@ -912,6 +993,7 @@
             </span>
         </a>
     </div>
+    <div class="bg-circle-gloww"></div>
     <div class="packages-grid">
         <?php if ($data_short_large && $data_short_large != false): ?>
             <?php while ($row = $data_short_large->fetch_assoc()): ?>
@@ -960,7 +1042,24 @@
     <!-- Combo hot tháng này -->
     <div class="section-title">
         Combo hot tháng này
-        
+        <div class="search-box">
+            <div class="search-inner">
+                <input type="text" class="search-input" placeholder="Tìm combo bạn cần...">
+                <span style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="15" cy="15" r="12" stroke="url(#search-gradient)" stroke-width="2.5" fill="none"/>
+                    <line x1="23.5" y1="23.5" x2="30" y2="30" stroke="url(#search-gradient)" stroke-width="2.5" stroke-linecap="round"/>
+                    <defs>
+                      <linearGradient id="search-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#ffb6b9"/>
+                        <stop offset="0.5" stop-color="#a259ff"/>
+                        <stop offset="1" stop-color="#3b82f6"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </span>
+            </div>
+        </div>
     </div>
     <div class="packages-grid">
         <?php if ($data_small_combo && $data_small_combo != false) {
@@ -1229,26 +1328,38 @@
     align-items: end;
 }
 .package-card {
-    background: rgba(20, 20, 30, 0.7);
-    border-radius: 56px !important;
-    border: 3px solid #a259ff;
-    box-shadow: 0 4px 32px 0 #57298b55;
+    background: rgba(20, 20, 30, 0.45);
+    border-radius: 32px !important;
+    border: 1.5px solid linear-gradient(180deg, #C73E2C 0%, #8620A3 100%) 1;;
+    box-shadow: none !important;
     padding: 32px 28px 24px 28px;
     color: #fff;
     position: relative;
     overflow: hidden;
     min-width: 320px;
     max-width: 420px;
+    width: 420px;
+    height: 600px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 16px auto;
     backdrop-filter: blur(12px);
     transition: box-shadow 0.3s, border-color 0.3s;
-    position: relative;
     padding-bottom: 36px;
+    background-clip: padding-box;
+    border-image: none !important;
+}
+.package-card::before {
+    border-radius: 32px;
 }
 .package-card:hover {
-    border: 3px solid transparent;
-    border-radius: 56px !important;
-    box-shadow: 0 0 0 3px linear-gradient(120deg, #E54A2A, #57298B), 0 8px 48px 0 #e54a2a55;
+    border-radius: 32px !important;
+    border: 1.5px solid;
+    border-image: linear-gradient(180deg, #C73E2C 0%, #8620A3 100%) 1;
+    box-shadow: none !important;
 }
 .package-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
 .package-title {
@@ -1267,7 +1378,7 @@
 .promo-badge { display: none !important; }
 .package-price {
     font-family: 'Afacad', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 2rem;
+    font-size: 2.5rem; /* hoặc 2.8rem, 3rem tùy ý */
     font-weight: 700;
     font-style: italic;
     margin-bottom: 20px;
@@ -1418,12 +1529,38 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: -330px;
+  margin: -340px;
   width: 100%;
-  padding-left: 780px;
+  padding-left: 800px;
 }
 .gradient-btn-index {
   margin: 0;
+}
+.circle-glow-bg-1 {
+    position: absolute;
+    left: 30%;
+    top: 250px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #1E92FF 0%, #C30EFF 100%);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(12px);
+}
+.circle-glow-bg-2 {
+    position: absolute;
+    left: 70%;
+    top: 400px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #1E92FF 0%, #C30EFF 100%);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(16px);
 }
 </style>
 <script>
@@ -1531,5 +1668,73 @@ function toggleViewMore(button) {
 }
 .view-more-btn:hover {
     background: linear-gradient(to right, #a259ff, #3b82f6);
+}
+</style>
+<style>
+.theo-y-u-c-u,
+.thi-t-k-ux-ui,
+.tro-domain-v-o-hosting,
+.t-y-ch-n-ba-o-ha-nh-ba-o-tri,
+.i-u-ch-nh-giao-di-n-ch-c-n-ng-theo-y-u-c-u {
+    font-size: 1.8rem;
+}
+</style>
+<style>
+.rectangle-347615694 {
+    width: 580px;   /* hoặc giá trị lớn hơn, ví dụ 200px */
+    height: auto;   /* giữ tỉ lệ gốc */
+    left: 210px;
+    top: 100px;
+    /* Nếu muốn tăng cả chiều cao, có thể thêm height: 80px; */
+}
+
+.flash{
+    top: 90px;
+}
+
+.thi-t-k-website-c-b-n{
+    top: 170px;
+    font-size: 2.05rem;
+}
+
+.ch-t-3-000-000{
+    top: 220px;
+    font-size: 2.5rem;
+}
+</style>
+<style>
+.rectangle-347615698 {
+    width: 40px; /* hoặc kích thước bạn muốn */
+    height: 40px;
+    background-image: url('assets/images/outline-time-history6.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+</style>
+<style>
+</style>
+<style>
+.svg-glow-bg-1 {
+    position: absolute;
+    left: -10%;
+    top: 120px;
+    width: 800px;
+    height: 800px;
+    transform: translateX(-50%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 1;
+}
+.svg-glow-bg-2 {
+    position: absolute;
+    left: 68%;
+    top: 400px;
+    width: 900px;
+    height: 900px;
+    transform: translateX(-50%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.7;
 }
 </style>
