@@ -298,43 +298,58 @@
             }
         }
         // thêm dịch vụ:
-        public function insertdichvu($goidichvu,$tendichvu,$mota,$id_danhmucdichvu){
+        public function insertdichvu($goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $hinhanh) {
             $p = new clsketnoi();
             $con = $p->moketnoi();
-            if($con){
-                $str = " INSERT INTO dichvu(goidichvu,tendichvu,mota,id_danhmucdichvu)
-                Values('$goidichvu','$tendichvu','$mota',$id_danhmucdichvu)";
+            if ($con) {
+                $str = "INSERT INTO dichvu(goidichvu, tendichvu, mota, id_danhmucdichvu, hinhanh)
+                        VALUES('$goidichvu', '$tendichvu', '$mota', $id_danhmucdichvu, '$hinhanh')";
                 $tbl = $con->query($str);
-                if($tbl){
+                if ($tbl) {
                     return $tbl;
-                }else{
-                    echo "Lỗi truy vấn" . $con->error;;
+                } else {
+                    echo "Lỗi truy vấn: " . $con->error;
                     return false;
                 }
-            }else{
+            } else {
                 echo "Lỗi kết nối";
                 return false;
             }
         }
+
         // Sửa dịch vụ
-        public function updateDichvu($id_dichvu, $goidichvu, $tendichvu, $mota, $id_danhmucdichvu) {
+        public function updateDichvu($id_dichvu, $goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $hinhanh = null) {
             $p = new clsketnoi();
             $con = $p->moketnoi();
 
             if ($con) {
-                $sql = "UPDATE dichvu 
-                        SET goidichvu = ?, tendichvu = ?, mota = ?, id_danhmucdichvu = ?
-                        WHERE id_dichvu = ?";
+                if ($hinhanh) {
+                    // Nếu có cập nhật hình ảnh
+                    $sql = "UPDATE dichvu 
+                            SET goidichvu = ?, tendichvu = ?, mota = ?, id_danhmucdichvu = ?, hinhanh = ?
+                            WHERE id_dichvu = ?";
+                    $stmt = $con->prepare($sql);
 
-                $stmt = $con->prepare($sql);
+                    if ($stmt === false) {
+                        echo "Lỗi chuẩn bị truy vấn: " . $con->error;
+                        return false;
+                    }
 
-                if ($stmt === false) {
-                    echo "Lỗi chuẩn bị truy vấn: " . $con->error;
-                    return false;
+                    $stmt->bind_param("sssisi", $goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $hinhanh, $id_dichvu);
+                } else {
+                    // Không cập nhật hình ảnh
+                    $sql = "UPDATE dichvu 
+                            SET goidichvu = ?, tendichvu = ?, mota = ?, id_danhmucdichvu = ?
+                            WHERE id_dichvu = ?";
+                    $stmt = $con->prepare($sql);
+
+                    if ($stmt === false) {
+                        echo "Lỗi chuẩn bị truy vấn: " . $con->error;
+                        return false;
+                    }
+
+                    $stmt->bind_param("sssii", $goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $id_dichvu);
                 }
-
-                // g = gói, t = tên, m = mô tả (string), d = danh mục (int), id_dichvu (int)
-                $stmt->bind_param("sssii", $goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $id_dichvu);
 
                 if ($stmt->execute()) {
                     return true;
@@ -347,7 +362,6 @@
                 return false;
             }
         }
-
         // xóa dịch vụ:
         public function deletedichvu($id_dichvu){
             $p = new clsketnoi();

@@ -32,32 +32,61 @@ if (isset($_POST['btnUpdateService'])) {
     $tendichvu = trim($_POST['tendichvu']); 
     $mota = trim($_POST['mota']); 
     $id_danhmucdichvu = intval($_POST['id_danhmucdichvu']);
-    
-    // Validation
+    $hinhanh_final = $service['hinhanh']; // giữ ảnh cũ mặc định
+
+    // Validate
     if (empty($goidichvu) || empty($tendichvu) || empty($id_danhmucdichvu)) {
         $message = "Vui lòng điền đầy đủ thông tin bắt buộc!";
         $messageType = "error";
     } else {
-        $result = $p->getupdateDichvu($id_dichvu, $goidichvu, $tendichvu, $mota, $id_danhmucdichvu); 
-        if ($result) { 
-            $message = "Cập nhật dịch vụ thành công!";
-            $messageType = "success";
-            // Refresh service data
-            $data = $p->get1dichvu($id_dichvu);
-            $service = $data->fetch_assoc();
-        } else { 
-            $message = "Cập nhật dịch vụ thất bại. Vui lòng thử lại!";
-            $messageType = "error";
-        } 
+        // Xử lý upload ảnh nếu có
+        if (isset($_FILES['hinhanh']) && $_FILES['hinhanh']['error'] === 0) {
+            $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            $hinhanh_name = $_FILES["hinhanh"]["name"];
+            $hinhanh_tmp = $_FILES["hinhanh"]["tmp_name"];
+            $hinhanh_ext = strtolower(pathinfo($hinhanh_name, PATHINFO_EXTENSION));
+
+            if (in_array($hinhanh_ext, $allowed_exts)) {
+                $hinhanh_final = time() . "_" . uniqid() . "." . $hinhanh_ext;
+                $upload_folder = "../assets/images/";
+                $upload_path = $upload_folder . $hinhanh_final;
+
+                if (!move_uploaded_file($hinhanh_tmp, $upload_path)) {
+                    $message = "Không thể lưu ảnh mới. Hãy kiểm tra quyền thư mục.";
+                    $messageType = "error";
+                    $hinhanh_final = $service['hinhanh']; // fallback lại ảnh cũ
+                }
+            } else {
+                $message = "Định dạng ảnh không hợp lệ. Chỉ chấp nhận JPG, PNG, GIF, WEBP.";
+                $messageType = "error";
+                $hinhanh_final = $service['hinhanh'];
+            }
+        }
+
+        // Nếu không có lỗi gì thì cập nhật
+        if (!isset($messageType) || $messageType === 'success') {
+            $result = $p->getupdateDichvu($id_dichvu, $goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $hinhanh_final); 
+            if ($result) { 
+                $message = "Cập nhật dịch vụ thành công!";
+                $messageType = "success";
+                // Refresh lại thông tin dịch vụ
+                $data = $p->get1dichvu($id_dichvu);
+                $service = $data->fetch_assoc();
+            } else { 
+                $message = "Cập nhật dịch vụ thất bại. Vui lòng thử lại!";
+                $messageType = "error";
+            } 
+        }
     }
 }
 
-// Danh sách gói dịch vụ
+// Gói dịch vụ
 $goi_dichvu_options = [
     'theo tháng' => 'Theo tháng',
     'theo năm' => 'Theo năm'
 ];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -235,7 +264,7 @@ $goi_dichvu_options = [
             </div>
 
             <!-- Form -->
-            <form method="POST" action="" class="space-y-8" id="serviceForm">
+            <form method="POST" action="" enctype="multipart/form-data" class="space-y-8" id="serviceForm">
                 
                 <!-- Service Package Section -->
                 <div class="form-section rounded-xl p-6">
@@ -309,6 +338,25 @@ $goi_dichvu_options = [
                                 <i class="fas fa-tags mr-1"></i>
                                 Chọn danh mục phù hợp để phân loại dịch vụ
                             </p>
+                        </div>
+                        <!-- Upload hình ảnh -->
+                        <!-- Upload hình ảnh -->
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 font-medium text-sm uppercase tracking-wide">
+                                Hình ảnh dịch vụ (nếu muốn thay đổi)
+                            </label>
+                            <input type="file" name="hinhanh" accept="image/*"
+                                class="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent input-focus bg-white">
+                            <p class="text-xs text-gray-500 mt-1">
+                                <i class="fas fa-upload mr-1"></i>
+                                Định dạng hợp lệ: JPG, PNG, GIF, WEBP. Bỏ qua nếu giữ ảnh cũ.
+                            </p>
+                            <?php if (!empty($service['hinhanh'])): ?>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-600">Ảnh hiện tại:</p>
+                                    <img src="../assets/images/<?= htmlspecialchars($service['hinhanh']) ?>" alt="Ảnh dịch vụ" class="w-48 h-32 object-cover rounded-xl border mt-1">
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

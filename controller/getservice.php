@@ -193,27 +193,25 @@
             }
         }
         // thêm dịch vụ
-        public function getinsertdichvu($goidichvu,$tendichvu,$mota,$id_danhmucdichvu){
+        public function getinsertdichvu($goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $hinhanh) {
             $p = new Mservice();
-            $con = $p->insertdichvu($goidichvu,$tendichvu,$mota,$id_danhmucdichvu);
-            if($con){
+            $con = $p->insertdichvu($goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $hinhanh);
+            if ($con) {
                 return $con;
-            }else{
+            } else {
                 echo "Lỗi thêm dịch vụ";
                 return 0;
             }
         }
-        // Sửa dịch vụ
-        public function getupdateDichvu($id_dichvu, $goidichvu, $tendichvu, $mota, $id_danhmucdichvu) {
-            $model = new Mservice(); // Gọi đến model chứa hàm updatecategorydichvu
-            $result = $model->updateDichvu($id_dichvu, $goidichvu, $tendichvu, $mota, $id_danhmucdichvu);
 
-            if ($result === true) {
-                return true; // Thành công
-            } else {
-                return false; // Thất bại
-            }
+        // Sửa dịch vụ
+        public function getupdateDichvu($id_dichvu, $goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $hinhanh = null) {
+            $model = new Mservice();
+            $result = $model->updateDichvu($id_dichvu, $goidichvu, $tendichvu, $mota, $id_danhmucdichvu, $hinhanh);
+
+            return $result === true;
         }
+
         // Xóa danh mục dịch vụ:
         public function getdeletedichvu($id_dichvu) {
             $model = new Mservice(); // Gọi đến model chứa hàm updatecategorydichvu
