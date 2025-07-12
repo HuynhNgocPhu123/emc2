@@ -84,11 +84,6 @@ $hotnew = $newsController->getviewnews();
   <!-- Header: Tiêu đề và bộ lọc -->
   <div class="news-header">
     <h2 class="section-title">Tin tức nổi bật</h2>
-    <div class="filters">
-      <button class="filter-btn1">Weekdays ▾</button>
-      <button class="filter-btn1">Event Type ▾</button>
-      <button class="filter-btn1">Any Category ▾</button>
-    </div>
   </div>
 
   <!-- Nội dung chính -->

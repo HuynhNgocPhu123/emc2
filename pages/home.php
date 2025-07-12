@@ -472,7 +472,7 @@ $category_id_map = [
       <p class="solution-intro-main">
         EMCGroup tự hào mang đến cho khách hàng các giải pháp AI tùy chỉnh, tăng cường hiệu suất, phân tích dữ liệu thông minh, trải nghiệm khách hàng tốt hơn, đổi mới sáng tạo, cùng với hỗ trợ toàn diện để tối ưu hóa quy trình và giữ vững lợi thế cạnh tranh trên thị trường. Hãy liên hệ với chúng tôi ngay hôm nay để mang lại cho doanh nghiệp của bạn!
       </p>
-      <button class="solution-btn">See more</button>
+      <button class="solution-btn">Xem thêm </button>
     </div>
     <div class="solution-right">
       <h2 class="solution-title">

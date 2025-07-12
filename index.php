@@ -1,4 +1,6 @@
 <?php
+// Chống DDOS
+require_once __DIR__ . '/middleware/anti_ddos.php';
   // Header
   include_once("includes/header.php");
   // Điều hướng trang dựa vào $_REQUEST

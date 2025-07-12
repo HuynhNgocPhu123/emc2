@@ -6,6 +6,9 @@ $ma = "";
 
 if (isset($_REQUEST["detailid"])) {
     $ma = $_REQUEST["detailid"];
+     // Gọi hàm tăng lượt xem ngay tại đây
+    $p->getincrease($ma);
+    
     $con = $p->getnewsbyid($ma);
     if ($con) {
         $r = $con->fetch_assoc();
